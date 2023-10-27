@@ -27,29 +27,60 @@
     <table class="table">
         <thread>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">name</th>
-                <th scope="col">address</th>
-                <th scope="col">city</th>
-                <th scope="col">employees</th>
-               
-               
+                <th scope="col">Name</th>
+                <th scope="col">Num Employee</th>
+                <th scope="col">Num Project</th>
+                <th scope="col">Employees</th>
+				<th scope="col">Projects</th>
             </tr>
         </thread>
-        <% for (Company c: result){//Recorremos la lista
-        %>
+        <% for (Company c: result){//Recorremos la lista%>
                 <tr>
-                    <td><%=c.getId()%></td>
                     <td><%=c.getName()%></td>
-                    <td><%=c.getAddress()%></td>
-                    <td><%=c.getCity()%></td>
                     <td><%=c.getEmployees().size()%></td>
-                    <td><table class="table"><%for(Employee e : c.getEmployees()) {%>           		
-             
-					        <tr>
-					        	<td><%=e.getFirstName()%></td>
-					        </tr>
-                	<% }%></table></td>
+                    <td><%=c.getCompanyProject().size()%></td>
+                    <td>
+	                    <table class="table">
+		                    <thread>
+					            <tr>
+					                <th scope="col">Id</th>
+					                <th scope="col">Name</th>
+					                <th scope="col">Last Name</th>
+					            </tr>
+					        </thread>
+		                    <%for(Employee e : c.getEmployees()) {%>           		
+							        <tr>
+							        	<td><%=e.getId()%></td>
+							       
+							        	<td><%=e.getFirstName()%></td>
+							        
+							        	<td><%=e.getLastName()%></td>
+							        </tr>
+		                	<%}%>
+		                </table>
+	               	</td>
+	               	<td>
+	                    <table class="table">
+		                    <thread>
+					            <tr>
+					                <th scope="col">Id</th>
+					                <th scope="col">Name</th>
+					                <th scope="col">Butget</th>
+					            </tr>
+					        </thread>
+		                    <%for(CompanyProject cp : c.getCompanyProject()) {%>           		
+							        <tr>
+							        	<td><%=cp.getProject().getId()%></td>
+							       
+							        	<td><%=cp.getProject().getName()%></td>
+							        
+							        	<td><%=cp.getProject().getButget()%></td>
+							        </tr>
+		                	<%}%>
+		                </table>
+	               	</td>
+                </tr>
+                <tr>
                 </tr>
         <% }%>
     </table>
