@@ -47,16 +47,19 @@ public class DbRepository {
 		return result;
 	}
 	
-	public static Company lookCompany(String company) {
+	public static Company lookCompany(String name) {
 		Company result = null;
 		Session session = DBUtility.getSessionFactory().openSession();
-		
-		SelectionQuery<Company> q =session.createSelectionQuery("From Company where company = :company",Company.class);
-		q.setParameter("company", company);
-		List<Company> companies= q.getResultList();
-		if(companies.size()!=0) {result=companies.get(0);};
-		session.close();
-		return result;
+
+		SelectionQuery<Company> q =
+				session.createSelectionQuery("From Company where name = :name", Company.class);
+				q.setParameter("name", name);
+				List<Company> companys = q.getResultList(); 
+				if(companys.size() != 0) {
+					result = companys.get(0);
+				}
+				session.close();
+				return result;
 	}
 	
 	public static <T> void addEntity(T t) {

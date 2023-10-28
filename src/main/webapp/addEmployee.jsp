@@ -39,7 +39,7 @@
 
 	            <div class="form-floating mb-3">
 	    			<label for="exampleInputEmail1" class="form-label">First Name</label>
-	    			<input type="text" class="form-control" id="fisrtName" name="firstName" placeholder="Enter First Name" required>
+	    			<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name" required>
 	            </div>
 	
 	            <div class="form-floating mb-3">
@@ -76,15 +76,28 @@
 	            <div class="d-grid">
 	              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="submit">Save</button>
 	            </div>
-	          <%
-	          if(request.getParameter("submit") != null && request.getParameter("firstName")!=null && request.getParameter("lastName")!=null && request.getParameter("email")!=null && request.getParameter("gender")!=null && request.getParameter("dateOfBirth")!=null && request.getParameter("companys")!=null){ 
-	        	 ArrayList<Employee> employes = (ArrayList<Employee>) DbRepository.findAll(Employee.class); 
-	        	  if(employes!=null){
-	          		Employee e = new Employee(employes.get(employes.size()-1).getId()+1,request.getParameter("firstName"),request.getParameter("lastName"),request.getParameter("email"),request.getParameter("gender"),Date.valueOf(request.getParameter("dateOfBirth")),DbRepository.lookCompany(request.getParameter("companys")));
-	        	  	
-	          		DbRepository.addEntity(e);	        	    	
-	        	    }
-	          }%>
+	         <%
+				if (request.getParameter("submit") != null && request.getParameter("firstName") != null && request.getParameter("lastName") != null && request.getParameter("email") != null && request.getParameter("gender") != null && request.getParameter("dateOfBirth") != null && request.getParameter("companys") != null) {
+				    Employee e = null;
+				    try {
+				        Date dateOfBirth = Date.valueOf(request.getParameter("dateOfBirth"));
+				
+				        e = new Employee(request.getParameter("firstName"),
+				                         request.getParameter("lastName"),
+				                         request.getParameter("email"),
+				                         request.getParameter("gender"),
+				                         dateOfBirth,
+				                         DbRepository.lookCompany(request.getParameter("companys")));
+				
+				        DbRepository.addEntity(e);
+				    } catch (IllegalArgumentException o) {
+				        out.println("Invalid date format. Please use yyyy-MM-dd.");
+				    } catch (Exception ex) {
+				        out.println("An error occurred: " + ex.getMessage());
+				    }
+				}
+				%>
+
 	          </form>
 	          <!-- End of contact form -->
 	        </div>
