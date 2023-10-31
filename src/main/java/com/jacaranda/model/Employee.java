@@ -25,6 +25,18 @@ public class Employee {
 	@JoinColumn(name="idCompany")
 	private Company company;
 
+	public Employee(int id, String firstName, String lastName, String email, String gender, Date dateOfBirth,
+			Company company) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.company = company;
+	}
+
 	public Employee(String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {
 		super();
@@ -35,6 +47,12 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		this.company = company;
 	}
+	
+	public Employee() {
+		super();
+	
+	}
+
 
 	public int getId() {
 		return id;

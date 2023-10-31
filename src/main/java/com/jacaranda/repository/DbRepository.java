@@ -78,4 +78,33 @@ public class DbRepository {
 		session.close();
 	}
 	
+	public static <T> void editEntity(T t) {
+		Transaction transaction = null;
+		Session session = DBUtility.getSessionFactory().openSession();
+	
+		transaction = session.beginTransaction();
+		try {
+			session.merge(t);
+			transaction.commit();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		}
+		
+		session.close();
+	}
+	
+	public static <T> void deleteEntity(Class<T> t,int id ) {
+		Transaction transaction = null;
+		T result = null;
+		Session session = DBUtility.getSessionFactory().openSession();
+		
+		SelectionQuery<T> q =session.createSelectionQuery("From "+t.getName()+" where id = :id",t);//Creamos la consulta para sacar la tarea con el mismo PK
+		q.setParameter("id", id);
+		List<T> entitys= q.getResultList();
+		if(entitys.size()!=0) { result=entitys.get(0);transaction = session.beginTransaction();}//Guardamos el resultado de la consulta
+		session.remove(result);//Se borra la tarea con remove.
+		transaction.commit();
+	}
+	
 }

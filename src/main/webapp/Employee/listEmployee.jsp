@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>List Employee</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -44,9 +44,22 @@
                     <td><%=e.getGender()%></td>
                     <td><%=e.getDateOfBirth()%></td>
                     <td><%=e.getCompany().getName()%></td>
+                    <td>
+                        <form action="../editEmployee.jsp">
+                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
+                            <button class="btn btn-primary btn-lg" type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="deleteEmployee.jsp">
+                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
+                            <button class="btn btn-primary btn-lg" type="submit">Delete</button>
+                        </form>
+                    </td>
                     
                 </tr>
         <% }%>
     </table>
 </body>
+</html>
 </html>
