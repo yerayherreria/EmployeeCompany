@@ -45,7 +45,7 @@
                     <td><%=e.getDateOfBirth()%></td>
                     <td><%=e.getCompany().getName()%></td>
                     <td>
-                        <form action="../editEmployee.jsp">
+                        <form action="editEmployee.jsp">
                             <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
                             <button class="btn btn-primary btn-lg" type="submit">Edit</button>
                         </form>
