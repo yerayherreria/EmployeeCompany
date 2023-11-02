@@ -7,11 +7,29 @@ import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
 import com.jacaranda.model.Company;
-
+import com.jacaranda.model.User;
 import com.jacaranda.utility.DBUtility;
 
 public class DbRepository {
 	public static <E> E find(Class<E> c,int id) throws Exception {
+		Transaction transaction = null;
+		Session session;
+		E result = null;
+		try {
+			session = DBUtility.getSessionFactory().openSession();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		}
+		try {
+			result = session.find(c, id);
+		} catch (Exception e) {
+			throw new Exception("Error al obtener la identidad.");
+		}
+		
+		return result;
+	}
+	
+	public static <E> E findUser(Class<E> c,String id) throws Exception {
 		Transaction transaction = null;
 		Session session;
 		E result = null;

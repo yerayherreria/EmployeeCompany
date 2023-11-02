@@ -23,24 +23,29 @@
 			
 
 		}catch(Exception r1){
-			response.sendRedirect("error.jsp?error="+r1.getMessage());
+			response.sendRedirect("../error.jsp?error="+r1.getMessage());
 		}
 		
 		try{
 			e = DbRepository.find(Employee.class, Integer.valueOf(request.getParameter("idEmployee")));	
 			
 		}catch(Exception r2){
-			response.sendRedirect("error.jsp?error="+r2.getMessage());
+			if(request.getParameter("submit2")!=null){
+				response.sendRedirect("listEmployee.jsp");
+			} else {
+				
+			response.sendRedirect("../error.jsp?error="+r2.getMessage()+"hola");
+			}
 		}
 		
-		if(request.getParameter("submit")!=null){
+		if(request.getParameter("submit2")!=null){
 			try{
 				Date dateOfBirth=null;
 				try{
 					dateOfBirth = Date.valueOf(request.getParameter("dateOfBirth"));
 					
 				}catch(Exception r3){
-					response.sendRedirect("error.jsp?error="+r3.getMessage());
+					response.sendRedirect("../error.jsp?error="+r3.getMessage());
 				}
 				
 			
@@ -53,10 +58,11 @@
 	                         dateOfBirth,
 	                         DbRepository.lookCompany(request.getParameter("companys")));
 	        
-	        	DbRepository.editEntity(e); 
+	        	DbRepository.editEntity(e);
 			}catch (Exception r5){
-				response.sendRedirect("error.jsp?error="+r5.getMessage());
+				response.sendRedirect("../error.jsp?error="+r5.getMessage());
 			}
+
 			
 		}
 %>
@@ -112,7 +118,7 @@
 	            
 	            <!-- Submit button -->
 	            <div class="d-grid">
-	              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="submit">Edit</button>
+	              	<button  type="submit" value = "inma" name="submit2">Edit</button>
 	            </div>
 
 	          </form>
