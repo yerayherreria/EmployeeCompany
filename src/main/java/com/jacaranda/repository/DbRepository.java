@@ -29,23 +29,21 @@ public class DbRepository {
 		return result;
 	}
 	
-	public static <E> E findUser(Class<E> c,String id) throws Exception {
-		Transaction transaction = null;
-		Session session;
-		E result = null;
-		try {
-			session = DBUtility.getSessionFactory().openSession();
-		} catch (Exception e) {
-			throw new Exception("Error en la base de datos");
-		}
-		try {
-			result = session.find(c, id);
-		} catch (Exception e) {
-			throw new Exception("Error al obtener la identidad.");
-		}
-		
-		return result;
-	}
+	public static <T> T findUser(Class<T> c, String id) throws Exception{
+        Session session;
+        T result = null;
+        try {
+            session = DBUtility.getSessionFactory().openSession();
+        } catch (Exception e) {
+            throw new Exception("Error en la base de datos");
+        }
+        try {
+            result = session.find(c, id);
+        } catch (Exception e) {
+            throw new Exception("Error al obtener la entidad");
+        }
+        return result;
+    }
 	
 	public static <E> List<E> findAll(Class<E> c) throws Exception {
 		Transaction transaction = null;

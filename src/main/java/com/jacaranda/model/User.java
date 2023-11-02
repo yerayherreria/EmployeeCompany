@@ -2,6 +2,7 @@ package com.jacaranda.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,13 +12,14 @@ import jakarta.persistence.Table;
 public class User {
 	
 	@Id
-	private String user;
+	@Column(name="user")
+	private String userr;
 	private String password;
 	private String role;
 	
 	public User(String user, String password, String role) {
 		super();
-		this.user = user;
+		this.userr = user;
 		this.password = password;
 		this.role = role;
 	}
@@ -27,11 +29,11 @@ public class User {
 	}
 
 	public String getUser() {
-		return user;
+		return userr;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.userr = user;
 	}
 
 	public String getPassword() {
@@ -48,7 +50,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(user);
+		return Objects.hash(userr);
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(user, other.user);
+		return Objects.equals(userr, other.userr);
 	}
 
 	public void setRole(String role) {

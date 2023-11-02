@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+	<%if(session.getAttribute("rol")!=null){ %>
 	<% //Inicializamos una lista con todas las tareas
         ArrayList<Employee> result = null;
         try{
@@ -44,21 +45,24 @@
                     <td><%=e.getGender()%></td>
                     <td><%=e.getDateOfBirth()%></td>
                     <td><%=e.getCompany().getName()%></td>
-                    <td>
-                        <form action="editEmployee.jsp">
-                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
-                            <button class="btn btn-primary btn-lg" type="submit">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="deleteEmployee.jsp">
-                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
-                            <button class="btn btn-primary btn-lg" type="submit">Delete</button>
-                        </form>
-                    </td>
-                    
+                    <%if(session.getAttribute("rol").equals("admin")){ %>
+	                    <td>
+	                        <form action="editEmployee.jsp">
+	                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
+	                            <button class="btn btn-primary btn-lg" type="submit">Edit</button>
+	                        </form>
+	                    </td>
+	                    <td>
+	                        <form action="deleteEmployee.jsp">
+	                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
+	                            <button class="btn btn-primary btn-lg" type="submit">Delete</button>
+	                        </form>
+	                    </td>
+                    <%} %>
                 </tr>
-        <% }%>
+        <% }
+        
+        }session.removeAttribute("rol");%>
     </table>
 </body>
 </html>

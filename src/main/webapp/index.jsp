@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.model.User"%>
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,7 +41,16 @@
 	          </form>
 	          <% 
 	          if(request.getParameter("login")!=null){
-	          	
+	    
+          		User user1=DbRepository.findUser(User.class, request.getParameter("user"));
+          		
+          		if(user1!=null && user1.getPassword().equals(request.getParameter("password"))){
+          			session.setAttribute("rol", user1.getRole());
+          			response.sendRedirect("./Employee/listEmployee.jsp");
+          		} else {
+          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Contraseña invalida!</textarea>
+          		<% }
+	          		 
 	          }
 	          %>
 	          <!-- End of contact form -->
