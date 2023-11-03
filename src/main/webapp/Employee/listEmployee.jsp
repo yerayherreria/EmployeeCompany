@@ -13,6 +13,7 @@
 </head>
 <body>
 	<%if(session.getAttribute("rol")!=null){ %>
+	<%@include file=".././nav.jsp"%>
 	<% //Inicializamos una lista con todas las tareas
         ArrayList<Employee> result = null;
         try{
@@ -62,7 +63,11 @@
                 </tr>
         <% }
         
-        }session.removeAttribute("rol");%>
+			
+        } else {
+        	response.sendRedirect(".././index.jsp");
+        }
+		%>
     </table>
 </body>
 </html>

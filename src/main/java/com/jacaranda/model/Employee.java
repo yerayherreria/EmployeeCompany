@@ -1,12 +1,14 @@
 package com.jacaranda.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,11 +21,16 @@ public class Employee {
 	private String lastName;
 	private String email;
 	private String gender;
+	private String password;
+	private String role;
 	private Date dateOfBirth;
 	
 	@ManyToOne
 	@JoinColumn(name="idCompany")
 	private Company company;
+	
+	@OneToMany(mappedBy="employee")
+	List<EmployeeProject> employeProject;
 
 	public Employee(int id, String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {
@@ -36,6 +43,7 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		this.company = company;
 	}
+	
 
 	public Employee(String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {
@@ -110,6 +118,26 @@ public class Employee {
 		this.company = company;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
