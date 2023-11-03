@@ -19,6 +19,8 @@ public class Employee {
 	private String lastName;
 	private String email;
 	private String gender;
+	private String password;
+	private String role;
 	private Date dateOfBirth;
 	
 	@ManyToOne
@@ -36,6 +38,7 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		this.company = company;
 	}
+	
 
 	public Employee(String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {
@@ -110,6 +113,26 @@ public class Employee {
 		this.company = company;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

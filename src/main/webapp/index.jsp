@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.model.Employee"%>
 <%@page import="com.jacaranda.model.User"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -23,8 +24,8 @@
 	          <form method="get">
 
 	            <div class="form-floating mb-3">
-	    			<label for="exampleInputEmail1" class="form-label">User</label>
-	    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter User" required>
+	    			<label for="exampleInputEmail1" class="form-label">Employee</label>
+	    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter Id" required>
 	            </div>
 	
 	            <div class="form-floating mb-3">
@@ -42,13 +43,13 @@
 	          <% 
 	          if(request.getParameter("login")!=null){
 	    
-          		User user1=DbRepository.findUser(User.class, request.getParameter("user"));
+          		Employee e=DbRepository.find(Employee.class, Integer.valueOf(request.getParameter("user")));
           		
-          		if(user1!=null && user1.getPassword().equals(request.getParameter("password"))){
-          			session.setAttribute("rol", user1.getRole());
+          		if(e!=null && e.getPassword().equals(request.getParameter("password"))){
+          			session.setAttribute("rol", e.getRole());
           			response.sendRedirect("./Employee/listEmployee.jsp");
           		} else {
-          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Contraseña invalida!</textarea>
+          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Datos inválidos!</textarea>
           		<% }
 	          		 
 	          }

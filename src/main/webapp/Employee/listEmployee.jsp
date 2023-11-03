@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+	<%@include file=".././nav.jsp"%>
 	<%if(session.getAttribute("rol")!=null){ %>
 	<% //Inicializamos una lista con todas las tareas
         ArrayList<Employee> result = null;
@@ -62,7 +63,11 @@
                 </tr>
         <% }
         
-        }session.removeAttribute("rol");%>
+			session.removeAttribute("rol");
+        } else {
+        	response.sendRedirect(".././index.jsp");
+        }
+		%>
     </table>
 </body>
 </html>
