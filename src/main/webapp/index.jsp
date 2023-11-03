@@ -47,6 +47,7 @@
           		
           		if(e!=null && e.getPassword().equals(request.getParameter("password"))){
           			session.setAttribute("rol", e.getRole());
+          			session.setAttribute("employee", e);
           			response.sendRedirect("./Employee/listEmployee.jsp");
           		} else {
           			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Datos inválidos!</textarea>

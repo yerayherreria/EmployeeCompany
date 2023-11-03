@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,32 +13,36 @@ import jakarta.persistence.Table;
 public class EmployeeProject {
 	
 	@Id
-	private int idEmployee;
+	@ManyToOne
+	@JoinColumn(name="employeeProject")
+	private Employee employee;
 	@Id
-	private int idProject;
+	@ManyToOne
+	@JoinColumn(name="employeeProject")
+	private Project project;
 	private int time;
 	
-	public EmployeeProject(int idEmployee, int idProject, int time) {
+	public EmployeeProject(Employee employee, Project project, int time) {
 		super();
-		this.idEmployee = idEmployee;
-		this.idProject = idProject;
+		this.employee = employee;
+		this.project = project;
 		this.time = time;
 	}
 	public EmployeeProject() {
 		super();
-	}
 	
-	public int getIdEmployee() {
-		return idEmployee;
 	}
-	public void setIdEmployee(int idEmployee) {
-		this.idEmployee = idEmployee;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public int getIdProject() {
-		return idProject;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
-	public void setIdProject(int idProject) {
-		this.idProject = idProject;
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	public int getTime() {
 		return time;
@@ -45,19 +51,4 @@ public class EmployeeProject {
 		this.time = time;
 	}
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(idEmployee, idProject);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmployeeProject other = (EmployeeProject) obj;
-		return idEmployee == other.idEmployee && idProject == other.idProject;
-	}
 }

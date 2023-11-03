@@ -1,12 +1,14 @@
 package com.jacaranda.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +28,9 @@ public class Employee {
 	@ManyToOne
 	@JoinColumn(name="idCompany")
 	private Company company;
+	
+	@OneToMany(mappedBy="employee")
+	List<EmployeeProject> employeeProject;
 
 	public Employee(int id, String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {
