@@ -14,11 +14,11 @@ public class EmployeeProject {
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(name="employeProject")
+	@JoinColumn(name="idEmployee")
 	private Employee employee;
 	@Id
 	@ManyToOne
-	@JoinColumn(name="employeeProject")
+	@JoinColumn(name="idProject")
 	private Project project;
 	private int time;
 	

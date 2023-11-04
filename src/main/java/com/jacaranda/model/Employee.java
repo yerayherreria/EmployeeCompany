@@ -30,7 +30,7 @@ public class Employee {
 	private Company company;
 	
 	@OneToMany(mappedBy="employee")
-	List<EmployeeProject> employeProject;
+	private List<EmployeeProject> employeeProject;
 
 	public Employee(int id, String firstName, String lastName, String email, String gender, Date dateOfBirth,
 			Company company) {

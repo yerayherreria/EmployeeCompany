@@ -21,7 +21,7 @@ public class Project {
 	List<CompanyProject> companyProject;
 	
 	@OneToMany(mappedBy="project")
-	List<EmployeeProject> employeeProject;
+	private List<EmployeeProject> employeeProject;
 	
 	public int getId() {
 		return id;

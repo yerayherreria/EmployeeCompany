@@ -70,42 +70,57 @@
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="start">Start</button>
 			            </div>		            	
 		            <%} else {
-		            	session.setAttribute("time", LocalDateTime.now());
-		            	session.setAttribute("sec", 0);
+		            	session.setAttribute("time", LocalDateTime.now());	            	
 		            	%>
 		            	<div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="stop">Stop</button>
 			            </div>
 		     		<%}
 		     		if(session.getAttribute("time")!=null && request.getParameter("stop")!=null){
-		     			session.setAttribute("sec", (int) ChronoUnit.SECONDS.between((LocalDateTime) session.getAttribute("time"), LocalDateTime.now()));
+		     			if(session.getAttribute("sec")==null){
+		     				session.setAttribute("sec", 0);
+		     			}
 		     			
+		     			session.setAttribute("sec",(int) session.getAttribute("sec") +(int) ChronoUnit.SECONDS.between((LocalDateTime) session.getAttribute("time"), LocalDateTime.now()));
+		     			session.removeAttribute("time");
 		     			out.println(session.getAttribute("sec"));%>
 		     			
 		     			<div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="save">Save</button>
 			            </div>
+			            
 		     		<%} if(request.getParameter("save")!=null){
-		     			EmployeeProject ep;
-		     			
+		     			Project p2;
 		     			try{
-		     				int sec = (int) session.getAttribute("sec");
-		     				int min = sec*60;
-		     				ep = new EmployeeProject(e,DbRepository.find(Project.class,Integer.valueOf(request.getParameter("projects"))),min);
+		     				p2 = DbRepository.find(Project.class,Integer.valueOf(request.getParameter("projects")));
 		     				
-		     				if(DbRepository.find(ep)!=null){
-		     					ep.setTime(DbRepository.find(ep).getTime()+min);
-			     				DbRepository.editEntity(ep);
-		     				} else {
-			     				DbRepository.addEntity(ep);
-		     					
-		     				}
 		     				
 		     			}catch(Exception r){
 		     				response.sendRedirect(".././error.jsp?error="+r.getMessage());
 		     				return;
 		     			}
-			     		session.removeAttribute("time");
+		     			
+		     			EmployeeProject ep;
+		     			int min=0;
+		     			try{
+		     				int sec = (int) session.getAttribute("sec");
+		     				min = sec;
+		     				ep = new EmployeeProject(e,p2,min);
+		     				
+		     				
+		     			}catch(Exception r){
+		     				response.sendRedirect(".././error.jsp?error="+r.getMessage());
+		     				return;
+		     			}
+		     			
+		     			
+	     				if(DbRepository.find(ep)!=null){
+	     					ep.setTime(DbRepository.find(ep).getTime()+min);
+		     				DbRepository.editEntity(ep);
+	     				} else {
+		     				DbRepository.addEntity(ep);
+	     					
+	     				}
 			     		session.removeAttribute("sec");
 		     		}
 		     		%>     		
