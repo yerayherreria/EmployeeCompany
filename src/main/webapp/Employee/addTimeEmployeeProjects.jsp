@@ -23,6 +23,7 @@
 	<%if(session.getAttribute("rol")!=null){ 
 		Employee e;
 		ArrayList<Project> p;
+		int idProjectSelect=0;
 		try{
 			p = (ArrayList<Project>) DbRepository.findAll(Project.class);
 			e = (Employee) session.getAttribute("employee");
@@ -48,29 +49,48 @@
 		    			<label for="exampleInputEmail1" class="form-label">Company</label>
 		    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter Id" value="<%=e.getCompany().getName() %>" readonly>
 		            </div>
-		
-		            <div class="form-floating mb-3">
-		                <label for="exampleInputEmail1" class="form-label">Project</label>
-		    			<select id="companys" name="projects" required>
-						<%
-							for (CompanyProject c : e.getCompany().getCompanyProject()){
-								if(c.getEnd().after(Date.valueOf(LocalDate.now()))){%>
-						 			 <option value="<%=c.getProject().getId()%>"><%=c.getProject().getName()%></option>							
-						 		<%
-								}
+					<%if(request.getParameter("start")==null && session.getAttribute("time") == null) {
+						%>						
+			            <div class="form-floating mb-3">
+			                <label for="exampleInputEmail1" class="form-label">Project</label>
+			    			<select id="companys" name="projects" required>
+							<%
+								for (CompanyProject c : e.getCompany().getCompanyProject()){
+									if(c.getEnd().after(Date.valueOf(LocalDate.now()))){
+																			
+										%>
+								 			 <option value="<%=c.getProject().getId()%>"><%=c.getProject().getName()%></option>							
+								 		<%
+										
+									}
 							
-							
-						 	}%>
-						</select>
-		    	
-		            </div>
-		
-		            <%if(request.getParameter("start")==null){%>
+							 	}%>
+							</select>
+			    	
+			            </div>
+			            <%
+					}else if(request.getParameter("start") != null || session.getAttribute("time") != null) {
+		            	if(session.getAttribute("project") == null){
+			            	session.setAttribute("project", DbRepository.find(Project.class, Integer.valueOf(request.getParameter("projects"))));
+		            	}
+		            %>
+			            <div class="form-floating mb-3">
+							<label for="exampleInputEmail1" class="form-label">Project</label>
+			            	<input type="text" class="form-control" id="idProject" name="projectId" value="<%=((Project)session.getAttribute("project")).getId()%>" hidden>
+			    			<input type="text" class="form-control" id="project" name="project" value="<%=((Project)session.getAttribute("project")).getName()%>" readonly>
+			            </div>
+		            <%}%>
+					
+						 
+		            <%if(request.getParameter("start")==null && session.getAttribute("time")==null){%>
 			            <div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="start">Start</button>
 			            </div>		            	
-		            <%} else {
-		            	session.setAttribute("time", LocalDateTime.now());	            	
+		            <%
+		            } else {
+		            	if(session.getAttribute("time")==null){
+			            	session.setAttribute("time", LocalDateTime.now());	            			            		
+		            	}
 		            	%>
 		            	<div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="stop">Stop</button>
@@ -92,7 +112,7 @@
 		     		<%} if(request.getParameter("save")!=null){
 		     			Project p2;
 		     			try{
-		     				p2 = DbRepository.find(Project.class,Integer.valueOf(request.getParameter("projects")));
+		     				p2 = DbRepository.find(Project.class,Integer.valueOf(request.getParameter("projectId")));
 		     				
 		     				
 		     			}catch(Exception r){
@@ -113,7 +133,6 @@
 		     				return;
 		     			}
 		     			
-		     			
 	     				if(DbRepository.find(ep)!=null){
 	     					ep.setTime(DbRepository.find(ep).getTime()+min);
 		     				DbRepository.editEntity(ep);
@@ -122,6 +141,7 @@
 	     					
 	     				}
 			     		session.removeAttribute("sec");
+			     		session.removeAttribute("project");
 		     		}
 		     		%>     		
 		          </form>

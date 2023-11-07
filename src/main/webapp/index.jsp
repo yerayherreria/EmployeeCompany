@@ -20,40 +20,43 @@
 	          <div class="text-center">
 	            <div class="h1 fw-light">Login</div>
 	          </div>
+				<%if(session.getAttribute("rol")!=null){
+	    			session.removeAttribute("rol");
+	    		} %>
+		          <form method="get">
 	
-	          <form method="get">
-
-	            <div class="form-floating mb-3">
-	    			<label for="exampleInputEmail1" class="form-label">Employee</label>
-	    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter Id" required>
-	            </div>
-	
-	            <div class="form-floating mb-3">
-	                <label for="exampleInputEmail1" class="form-label">Password</label>
-	    			<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
-	            </div>
-	
-	            
-	            <!-- Submit button -->
-	            <div class="d-grid">
-	              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="login">Sign in</button>
-	            </div>
-	     
-	          </form>
-	          <% 
-	          if(request.getParameter("login")!=null){
-	    
-          		Employee e=DbRepository.find(Employee.class, Integer.valueOf(request.getParameter("user")));
-          		
-          		if(e!=null && e.getPassword().equals(request.getParameter("password"))){
-          			session.setAttribute("rol", e.getRole());
-          			session.setAttribute("employee", e);
-          			response.sendRedirect("./Employee/listEmployee.jsp");
-          		} else {
-          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Datos inválidos!</textarea>
-          		<% }
-	          		 
-	          }
+		            <div class="form-floating mb-3">
+		    			<label for="exampleInputEmail1" class="form-label">Employee</label>
+		    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter Id" required>
+		            </div>
+		
+		            <div class="form-floating mb-3">
+		                <label for="exampleInputEmail1" class="form-label">Password</label>
+		    			<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+		            </div>
+		
+		            
+		            <!-- Submit button -->
+		            <div class="d-grid">
+		              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="login">Sign in</button>
+		            </div>
+		     
+		          </form>
+		          <% 
+		          if(request.getParameter("login")!=null){
+		    		
+	          		Employee e=DbRepository.find(Employee.class, Integer.valueOf(request.getParameter("user")));
+	          		
+	          		if(e!=null && e.getPassword().equals(request.getParameter("password"))){
+	          			session.setAttribute("rol", e.getRole());
+	          			session.setAttribute("employee", e);
+	          			response.sendRedirect("./Employee/listEmployee.jsp");
+	          		} else {
+	          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Datos inválidos!</textarea>
+	          		<% }
+		          		 
+		          }
+	    		
 	          %>
 	          <!-- End of contact form -->
 	        </div>

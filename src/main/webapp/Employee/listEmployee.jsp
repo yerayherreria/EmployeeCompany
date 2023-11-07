@@ -71,4 +71,3 @@
     </table>
 </body>
 </html>
-</html>
