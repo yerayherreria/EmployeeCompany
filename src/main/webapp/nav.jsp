@@ -17,6 +17,7 @@
 	      </form>
 	        <a class=" nav-link" href="./listEmployee.jsp">List Employee</a>
 	        <a class=" nav-link" href="./addTimeEmployeeProjects.jsp">Add Hours</a>
+	        <a class=" nav-link" href="./addTimeEmployeeMultipleProjects.jsp">Add Hours Others Projects</a>
 	      </div>
 	    </div>
 	</nav>

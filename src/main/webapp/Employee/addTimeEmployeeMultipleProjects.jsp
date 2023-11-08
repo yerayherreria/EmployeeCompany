@@ -17,7 +17,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Add Time</title>
+<title>Add Time Other Projects</title>
 </head>
 <body>
 	<%if(session.getAttribute("rol")!=null){ 
@@ -40,7 +40,7 @@
 		      <div class="card border-0 rounded-3 shadow-lg">
 		        <div class="card-body p-4">
 		          <div class="text-center">
-		            <div class="h1 fw-light">Add Time Project</div>
+		            <div class="h1 fw-light">Add Time Other Projects</div>
 		          </div>
 				
 		          <form method="get">
@@ -52,21 +52,18 @@
 					<%if(request.getParameter("start")==null && session.getAttribute("time") == null) {
 						%>						
 			            <div class="form-floating mb-3">
-			                <label for="exampleInputEmail1" class="form-label">Project</label>
-			    			<select id="companys" name="projects" required>
+			                <label for="exampleInputEmail1" class="form-label">Project</label><br>
 							<%
 								for (CompanyProject c : e.getCompany().getCompanyProject()){
 									if(c.getEnd().after(Date.valueOf(LocalDate.now()))){
 																			
 										%>
-								 			 <option value="<%=c.getProject().getId()%>"><%=c.getProject().getName()%></option>							
+								 			<label><input type="checkbox"  id="projects" name="projects" value="<%=c.getProject().getId() %>">&nbsp<%=c.getProject().getName()%></label>	<br>						
 								 		<%
 										
 									}
 							
 							 	}%>
-							</select>
-			    	
 			            </div>
 			            <%
 					}else if(request.getParameter("start") != null || session.getAttribute("time") != null) {
@@ -83,6 +80,11 @@
 					
 						 
 		            <%if(request.getParameter("start")==null && session.getAttribute("time")==null){%>
+			            <%/*if(session.getAttribute("arrayProjects")==null){
+							session.setAttribute("arrayProjects", request.getParameterValues("projects"));
+			            }
+			            out.print(session.getAttribute("arrayProjects"));*/
+			            	%>
 			            <div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="start">Start</button>
 			            </div>		            	
@@ -92,11 +94,9 @@
 			            	session.setAttribute("time", LocalDateTime.now());	            			            		
 		            	}
 		            	%>
-		            	<%if(request.getParameter("stop") == null) {%>
 		            	<div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="stop">Stop</button>
-			            </div>		            	
-			            <%}%>
+			            </div>
 		     		<%}
 		     		if(session.getAttribute("time")!=null && request.getParameter("stop")!=null){
 		     			if(session.getAttribute("sec")==null){
