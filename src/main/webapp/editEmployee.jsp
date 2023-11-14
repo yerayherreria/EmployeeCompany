@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.codec.digest.DigestUtils"%>
 <%@page import="com.jacaranda.model.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Date"%>
@@ -14,8 +15,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="./nav.jsp"%>
 <%
-	
+		if(session.getAttribute("rol")==null){response.sendRedirect("./index.jsp");}
+
 		ArrayList<Company> companias = null;
 		Employee e = null;
 		try{ 
@@ -37,7 +40,6 @@
 			response.sendRedirect("../error.jsp?error="+r2.getMessage()+"hola");
 			}
 		}
-		
 		if(request.getParameter("submit2")!=null){
 			try{
 				Date dateOfBirth=null;
@@ -48,15 +50,21 @@
 					response.sendRedirect("../error.jsp?error="+r3.getMessage());
 				}
 				
-			
+			 	String passwordConf=null;
+			 	try{
+			 		passwordConf=DigestUtils.md5Hex(request.getParameter("password"));
+			 	}catch(Exception r6){
+			 		response.sendRedirect("../error.jsp?error="+r6.getMessage());
+			 		return;
+			 	}
 	       
-				e = new Employee(Integer.valueOf(request.getParameter("id")),
-	        				request.getParameter("firstName"),
-	                         request.getParameter("lastName"),
-	                         request.getParameter("email"),
-	                         request.getParameter("gender"),
-	                         dateOfBirth,
-	                         DbRepository.lookCompany(request.getParameter("companys")));
+			 	e =  new Employee(request.getParameter("firstName"),
+            	       request.getParameter("lastName"),
+                        request.getParameter("email"),
+                        request.getParameter("gender"),
+                        passwordConf,
+                        dateOfBirth,
+                        DbRepository.lookCompany(request.getParameter("companys")));
 	        
 	        	DbRepository.editEntity(e);
 			}catch (Exception r5){
@@ -65,6 +73,8 @@
 
 			
 		}
+		
+		
 %>
 	<div class="container px-5 my-5">
 	  <div class="row justify-content-center">
@@ -115,12 +125,14 @@
 						 	}%>
 						</select>
 	            </div>
-	            
+	    		<div class="form-floating mb-3">
+	                <label for="exampleInputEmail1" class="form-label">Password</label>
+	    			<input type="password" class="form-control" id="lastName" name="password" placeholder="******" required>
+	            </div>
 	            <!-- Submit button -->
 	            <div class="d-grid">
-	              	<button  type="submit" value = "inma" name="submit2">Edit</button>
+	              	<button class="btn btn-primary btn-lg" type="submit" value = "inma" name="submit2">Edit</button>
 	            </div>
-
 	          </form>
 	          <!-- End of contact form -->
 	        </div>
