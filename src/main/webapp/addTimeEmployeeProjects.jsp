@@ -17,6 +17,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./style/styleNav.css">
 <title>Add Time</title>
 </head>
 <body>
@@ -92,9 +93,11 @@
 			            	session.setAttribute("time", LocalDateTime.now());	            			            		
 		            	}
 		            	%>
+		            	<%if(request.getParameter("stop") == null) {%>
 		            	<div class="d-grid">
 			              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="stop">Stop</button>
-			            </div>
+			            </div>		            	
+			            <%}%>
 		     		<%}
 		     		if(session.getAttribute("time")!=null && request.getParameter("stop")!=null){
 		     			if(session.getAttribute("sec")==null){
