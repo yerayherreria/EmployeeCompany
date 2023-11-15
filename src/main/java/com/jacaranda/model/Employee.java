@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 @Table(name="employee")
 public class Employee {
 
+
 	@Id
 	private int id;
 	private String firstName;
@@ -24,6 +25,19 @@ public class Employee {
 	private String password;
 	private String role;
 	private Date dateOfBirth;
+	
+	public Employee(String firstName, String lastName, String email, String gender, String password,
+			Date dateOfBirth,Company company) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		this.password = password;
+		this.role = "user";
+		this.dateOfBirth = dateOfBirth;
+		this.company = company;
+	}
 	
 	@ManyToOne
 	@JoinColumn(name="idCompany")

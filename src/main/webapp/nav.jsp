@@ -14,6 +14,9 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">	
 	    <ul class="navbar-nav mr-auto">	
 	      <li class="nav-item">	
+	        <a class="nav-link text-white" href="./addEmployee.jsp">Add Employee</a>	
+	      </li>
+	      <li class="nav-item">	
 	        <a class="nav-link text-white" href="./listEmployee.jsp">List Employee</a>	
 	      </li>
 	      <li class="nav-item">
