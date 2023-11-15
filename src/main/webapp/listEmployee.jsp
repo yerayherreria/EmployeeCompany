@@ -16,6 +16,7 @@
 	<%@include file=".././nav.jsp"%>
 	<% //Inicializamos una lista con todas las tareas
         ArrayList<Employee> result = null;
+		Employee e2 = (Employee) session.getAttribute("employee");
         try{
             result = (ArrayList<Employee>) DbRepository.findAll(Employee.class);
         }catch(Exception e){
@@ -46,7 +47,7 @@
                     <td><%=e.getGender()%></td>
                     <td><%=e.getDateOfBirth()%></td>
                     <td><%=e.getCompany().getName()%></td>
-                    <%if(session.getAttribute("rol").equals("admin")){ %>
+                    <%if(session.getAttribute("rol").equals("admin") ){ %>
 	                    <td>
 	                        <form action="editEmployee.jsp">
 	                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
@@ -59,7 +60,14 @@
 	                            <button class="btn btn-primary btn-lg" type="submit">Delete</button>
 	                        </form>
 	                    </td>
-                    <%} %>
+                    <%}else if (e2.getId()==(e.getId())){ %>
+                    	<td>
+	                        <form action="editEmployee.jsp">
+	                            <input type="text" name="idEmployee" value='<%=e.getId()%>' hidden>
+	                            <button class="btn btn-primary btn-lg" type="submit">Edit</button>
+	                        </form>
+	                    </td>
+                    <% }%>
                 </tr>
         <% }
         

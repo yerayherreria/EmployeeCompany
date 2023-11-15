@@ -25,7 +25,6 @@
 	    			session.removeAttribute("rol");
 	    		} %>
 		          <form method="get">
-	
 		            <div class="form-floating mb-3">
 		    			<label for="exampleInputEmail1" class="form-label">Employee</label>
 		    			<input type="text" class="form-control" id="user" name="user" placeholder="Enter Id" required>
@@ -39,13 +38,12 @@
 		            
 		            <!-- Submit button -->
 		            <div class="d-grid">
-		              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="login">Sign in</button>
+		              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="login">Sign in</button>&nbsp
+		              	<a href="./register.jsp"><button class="btn btn-primary btn-lg" id="register" value="register" type="button" name="register">Register</button></a>
 		            </div>
-		     
 		          </form>
 		          <% 
 		          if(request.getParameter("login")!=null){
-		    		
 	          		Employee e=DbRepository.find(Employee.class, Integer.valueOf(request.getParameter("user")));
 	          		
 	          		if(e!=null && e.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))){
@@ -56,7 +54,7 @@
 	          			%> <textarea class="textAreaInfoSuccesfull ml-25" readonly>Datos inválidos!</textarea>
 	          		<% }
 		          		 
-		          }
+		          } 
 	    		
 	          %>
 	          <!-- End of contact form -->
