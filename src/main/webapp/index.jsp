@@ -24,6 +24,9 @@
 				<%if(session.getAttribute("rol")!=null){
 	    			session.removeAttribute("rol");
 	    		} %>
+	    		<%if(session.getAttribute("check")!=null){
+	    			session.removeAttribute("check");
+	    		} %>
 		          <form method="get">
 		            <div class="form-floating mb-3">
 		    			<label for="exampleInputEmail1" class="form-label">Employee</label>
